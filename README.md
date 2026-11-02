@@ -1,6 +1,7 @@
-# DhizukuF Plugin API
+# Plugin-API (DhizukuF)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![JitPack](https://jitpack.io/v/AmakerGame/Plugin-API.svg)](https://jitpack.io/#AmakerGame/Plugin-API)
 
 Official **Plugin API** for [DhizukuF](https://github.com/AmakerGame/DhizukuF).
 
@@ -18,13 +19,31 @@ Plugins are distributed as **`.zip`** packages and can:
 > Only install plugins from sources you trust.  
 > A plugin can request **dangerous commands** and **auto-start** — these are clearly shown before installation and on the plugin details screen.
 
+## Use from GitHub (JitPack)
+
+```kotlin
+// settings.gradle.kts  (or dependencyResolutionManagement)
+repositories {
+    maven { url = uri("https://jitpack.io") }
+}
+
+// app/build.gradle.kts
+dependencies {
+    implementation("com.github.AmakerGame:Plugin-API:1.0.0")
+    // until a tag exists you can use:
+    // implementation("com.github.AmakerGame:Plugin-API:main-SNAPSHOT")
+}
+```
+
+Source of truth: [github.com/AmakerGame/Plugin-API](https://github.com/AmakerGame/Plugin-API)
+
 ## Plugin package format (`.zip`)
 
 ```
 my-plugin.zip
-├── plugin.json          # required – manifest
-├── classes.dex          # or classes.jar / .so (implementation)
-├── res/                 # optional resources
+├── plugin.json          # required
+├── classes.dex
+├── res/                 # optional
 └── README.md            # optional
 ```
 
@@ -42,37 +61,19 @@ my-plugin.zip
   "entryClass": "com.example.myplugin.MyPlugin",
   "autoStart": false,
   "requestsDangerousCommands": false,
-  "permissions": [
-    "settings_entry",
-    "activation_method",
-    "page"
-  ]
+  "permissions": ["settings_entry", "activation_method", "page"]
 }
 ```
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `id` | yes | Unique plugin ID |
-| `name` | yes | Display name |
-| `version` | yes | Human-readable version |
-| `versionCode` | yes | Integer for updates |
-| `description` | no | Short description |
-| `author` | no | Author |
-| `minDhizukuF` | no | Minimum DhizukuF API level |
-| `entryClass` | yes | Fully-qualified class that implements `DhizukuPlugin` |
-| `autoStart` | no | Default auto-start preference (user can change) |
-| `requestsDangerousCommands` | no | If `true`, user must enable “Dangerous commands” to install |
-| `permissions` | no | Declared capabilities |
+## Quick start for plugin developers
 
-## Quick start for developers
-
-1. Depend on this API (or copy the interfaces).
-2. Implement `DhizukuPlugin`.
+1. Depend on this API via JitPack (or copy the interfaces).
+2. Implement `com.EdS.dhizukuf.pluginapi.DhizukuPlugin`.
 3. Create `plugin.json`.
 4. Package as `.zip`.
 5. Install from DhizukuF → Plugins.
 
-See [docs/PLUGIN_DEVELOPMENT.md](docs/PLUGIN_DEVELOPMENT.md) for full details.
+See [docs/PLUGIN_DEVELOPMENT.md](docs/PLUGIN_DEVELOPMENT.md).
 
 ## Links
 
