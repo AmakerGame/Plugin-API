@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.EdS.dhizukuf.pluginapi"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -25,13 +25,12 @@ android {
     publishing {
         singleVariant("release") {
             withSourcesJar()
-            withJavadocJar()
         }
     }
 }
 
 dependencies {
-    compileOnly("androidx.annotation:annotation:1.9.1")
+    compileOnly("androidx.annotation:annotation:1.8.2")
 }
 
 afterEvaluate {
