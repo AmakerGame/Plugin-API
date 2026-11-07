@@ -37,9 +37,18 @@ interface DhizukuPlugin {
     fun onOwnerStateChanged(context: PluginContext, isOwner: Boolean) {}
 
     /**
-     * Provide entries that appear in Settings / main navigation.
+     * Provide entries that appear on Home / Settings navigation.
+     * Host shows them as soon as the plugin is ENABLED.
      */
     fun provideSettingsEntries(context: PluginContext): List<PluginSettingsEntry> = emptyList()
+
+    /**
+     * Called when the user taps a [PluginSettingsEntry] from this plugin.
+     *
+     * @return true if the click was handled (host will not navigate to [PluginSettingsEntry.route]).
+     *         Use this to run code (toggle, command, toast, etc.) without opening a page.
+     */
+    fun onSettingsEntryClick(context: PluginContext, entryId: String): Boolean = false
 
     /**
      * Provide activation methods shown on the Home / Activate screen.

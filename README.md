@@ -29,7 +29,7 @@ repositories {
 
 // app/build.gradle.kts
 dependencies {
-    implementation("com.github.AmakerGame:Plugin-API:1.0.0")
+    implementation("com.github.AmakerGame:Plugin-API:1.1.0")
     // until a tag exists you can use:
     // implementation("com.github.AmakerGame:Plugin-API:main-SNAPSHOT")
 }
@@ -53,7 +53,7 @@ my-plugin.zip
 {
   "id": "com.example.myplugin",
   "name": "My Plugin",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "versionCode": 1,
   "description": "Does something useful",
   "author": "Author Name",
@@ -84,3 +84,11 @@ See [docs/PLUGIN_DEVELOPMENT.md](docs/PLUGIN_DEVELOPMENT.md).
 ## License
 
 MIT
+
+
+## 1.1.0
+
+- `DhizukuPlugin.onSettingsEntryClick` — handle menu taps in code (return `true` to skip navigation)
+- `PluginSettingsEntry.runAction` — prefer action over opening a page
+- `PluginContext.runOnMain` — post to UI thread
+- Host refreshes Home entries immediately when a plugin is enabled

@@ -1,15 +1,20 @@
 package com.EdS.dhizukuf.pluginapi
 
 /**
- * Entry that appears in Settings or navigation.
+ * Entry that appears on Home or in Settings.
+ *
+ * - If [runAction] is true, the host calls [DhizukuPlugin.onSettingsEntryClick] first.
+ * - If that returns false (or [runAction] is false), the host navigates to [route].
  */
 data class PluginSettingsEntry(
     val id: String,
     val title: String,
     val subtitle: String? = null,
-    val route: String,               // must match a key from providePages() or a built-in route
+    val route: String,
     val order: Int = 100,
-    val iconResName: String? = null  // optional drawable name inside the plugin
+    val iconResName: String? = null,
+    /** When true, host prefers [DhizukuPlugin.onSettingsEntryClick] over navigation. */
+    val runAction: Boolean = false
 )
 
 /**
@@ -38,7 +43,7 @@ data class PluginDangerousCommand(
  * The host decides how to host it.
  */
 fun interface PluginPageFactory {
-    fun create(context: PluginContext): Any  // Compose @Composable or View
+    fun create(context: PluginContext): Any
 }
 
 /**
@@ -58,25 +63,19 @@ data class PluginManifest(
     val permissions: List<String> = emptyList()
 )
 
-/**
- * Runtime state of an installed plugin.
- */
 enum class PluginState {
-    INSTALLED,      // present but not loaded
-    ENABLED,        // loaded and running
-    DISABLED,       // installed but user turned off
-    STOPPED,        // was running, explicitly stopped
-    ERROR           // failed to load
+    INSTALLED,
+    ENABLED,
+    DISABLED,
+    STOPPED,
+    ERROR
 }
 
-/**
- * Full info shown in the Plugins UI.
- */
 data class PluginInfo(
     val manifest: PluginManifest,
     val state: PluginState,
-    val autoStart: Boolean,                 // current user preference
+    val autoStart: Boolean,
     val installPath: String,
     val errorMessage: String? = null,
-    val whatItReceives: List<String> = emptyList()  // human-readable summary for UI
+    val whatItReceives: List<String> = emptyList()
 )
